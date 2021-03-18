@@ -53,9 +53,9 @@ INSERT INTO `activiteiten` (`id`, `soort_id`, `datum`, `tijd`) VALUES
 
 CREATE TABLE IF NOT EXISTS `app_users` (
 `id` int(11) NOT NULL,
-  `username` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:json_array)',
   `voorletters` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `tussenvoegsel` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,

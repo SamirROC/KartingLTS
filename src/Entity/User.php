@@ -20,18 +20,18 @@ class User implements UserInterface, \Serializable
 private $id;
 
 /**
-* @ORM\Column(type="string", length=25, unique=true)
+* @ORM\Column(type="string", length=255, unique=true)
 * @Assert\NotBlank(message="vul gebruikersnaam in")
 */
 private $username;
 
 /**
-* @ORM\Column(type="string", length=64)
+* @ORM\Column(type="string", length=255)
 */
 private $password;
 
 /**
-* @ORM\Column(type="string", length=60, unique=false)
+* @ORM\Column(type="string", length=255, unique=false)
  *  @Assert\Email(
  *    message = "The email '{{ value }}' is geen geldig email adres")
  * @Assert\NotBlank(message="vul emailadres in")
