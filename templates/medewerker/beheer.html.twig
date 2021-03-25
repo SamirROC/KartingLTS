@@ -3,6 +3,9 @@
 {% block menu %}
     <li><a href="{{ path('activiteitenoverzicht') }}">home</a></li>
     <li class="active"><a href="{{ path('beheer') }}"><span class="badge">{{ activiteiten|length }}</span>beheer</a></li>
+    <li><a href="{{ path('soort_activiteitenoverzicht') }}">soorten activiteiten</a></li>
+    <li><a href="{{ path('deelnemersoverzicht') }}">Deelnemers</a></li>
+
 {% endblock %}
 {% block content %}
     <section >
@@ -10,12 +13,13 @@
             <caption>Dit zijn alle activiteiten van het kartcentrum</caption>
             <thead>
             <tr>
-                <td>datum</td>
+                <td>Datum</td>
                 <td>Tijd</td>
-                <td>soort activiteit</td>
-                <td>deelnemers</td>
-                <td>bewerken</td>
-                <td>verwijderen</td>
+                <td>Soort activiteit</td>
+                <td>Deelnemers</td>
+                <td>Limiet deelnemers</td>
+                <td>Bewerken</td>
+                <td>Verwijderen</td>
             </tr>
             </thead>
             <tbody>
@@ -33,6 +37,10 @@
                     </td>
                     <td>
                         {{ activiteit.users|length}}
+                    </td>
+
+                    <td>
+                        {{ activiteit.limiet}}
                     </td>
                     <td title="bewerk de gegevens van deze activiteit">
 
