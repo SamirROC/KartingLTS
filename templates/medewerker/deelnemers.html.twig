@@ -24,7 +24,7 @@
                 <td>postcode</td>
                 <td>woonplaats</td>
                 <td>telefoon</td>
-                <td>reset wachtwoord</td>
+                <td>Wijzig</td>
                 <td>verwijderen</td>
             </tr>
             </thead>
@@ -59,7 +59,7 @@
                         {{ deelnemer.telefoon }}
                     </td>
                     <td>
-                        <a href="{{ path('deelnemers_reset_password', {'id':deelnemer.id}) }}">
+                        <a href="{{ path('deelnemers_update', {'id':deelnemer.id}) }}">
                             <span class="glyphicon glyphicon-minus" style="color:red"></span>
                         </a>
                     </td>

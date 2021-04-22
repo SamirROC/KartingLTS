@@ -7,6 +7,7 @@ use App\Entity\Soortactiviteit;
 use App\Entity\User;
 use App\Form\ActiviteitType;
 use App\Form\SoortActiviteitType;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -308,22 +309,40 @@ class MedewerkerController extends AbstractController
     }
 
     /**
-     * @Route("/admin/deelnemers/reset_password/{id}", name="deelnemers_reset_password")
+     * @Route("/admin/deelnemers/update/{id}", name="deelnemers_update")
      */
-    public function resetDeelnemersWachtwoordAction($id, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetDeelnemersWachtwoordAction(Request $request, $id, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()
+        $a = $this->getDoctrine()
             ->getRepository(User::class)->find($id);
-        $password = $passwordEncoder->encodePassword($user, 'qwerty01');
-        $user->setPassword($password);
-        $em->flush();
 
-        $this->addFlash(
-            'notice',
-            'Wachtwoord van '. $user->getUsername() . ' gereset'
+        $form = $this->createForm(UserType::class, $a);
+        $form->add('save', SubmitType::class, array('label' => "Wijzig"));
+        //$form->add('reset', ResetType::class, array('label'=>"reset"));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($a, $a->getPlainPassword());
+            $a->setPassword($password);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($a);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Account gewijzigd!'
+            );
+            return $this->redirectToRoute('deelnemersoverzicht');
+        }
+        $activiteiten = $this->getDoctrine()
+            ->getRepository(Soortactiviteit::class)
+            ->findAll();
+        return $this->render('medewerker/deelnemers_wijzig.html.twig',
+            array('form' => $form->createView(),
+                'naam' => 'wijzigen account',
+                'aantal' => count($activiteiten)
+            )
         );
-        return $this->redirectToRoute('deelnemersoverzicht');
-
     }
 }
